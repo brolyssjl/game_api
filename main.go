@@ -13,7 +13,7 @@ func main() {
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
-	routes := server.NewRoutes()
+	routes := server.NewRouter()
 	srv := server.NewServer(config, routes)
 
 	srv.ListenAndServe()
