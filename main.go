@@ -1,13 +1,20 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"time"
+
+	"github.com/brolyssjl/game_api/models"
+	"github.com/brolyssjl/game_api/server"
+)
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	config := models.ServiceConfig{
+		Port:         8080,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+	routes := server.NewRoutes()
+	srv := server.NewServer(config, routes)
+
+	srv.ListenAndServe()
 }
