@@ -12,7 +12,7 @@ type Connection struct {
 	DB *sql.DB
 }
 
-func NewConnection() Spec {
+func NewDatabaseConnection() Spec {
 	user := "root"
 	pass := ""
 	host := "tcp(127.0.0.1:3306)"
@@ -24,5 +24,5 @@ func NewConnection() Spec {
 		return nil
 	}
 
-	return &Connection{db: db}
+	return &Connection{DB: db}
 }
