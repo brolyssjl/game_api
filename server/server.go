@@ -3,11 +3,21 @@ package server
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/brolyssjl/game_api/models"
+	"time"
 )
 
-func NewServer(cfg models.ServiceConfig, handler http.Handler) *http.Server {
+type Config struct {
+	Port                int
+	ReadTimeout         time.Duration
+	WriteTimeout        time.Duration
+	IdleTimeout         time.Duration
+	ReadHeaderTimeout   time.Duration
+	MaxIdleConns        int
+	MaxIdleConnsPerHost int
+	IdleConnTimeout     time.Duration
+}
+
+func NewServer(cfg Config, handler http.Handler) *http.Server {
 	return &http.Server{
 		Addr:              fmt.Sprintf(":%d", cfg.Port),
 		Handler:           handler,
