@@ -12,7 +12,7 @@ func (h *Handler) HandleLoadGameState(c *gin.Context) {
 	if err := c.ShouldBindUri(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "invalid request",
-			"msg":     err.Error(),
+			"error":   err.Error(),
 		})
 		return
 	}
@@ -21,8 +21,9 @@ func (h *Handler) HandleLoadGameState(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"message": "we couldn't load game state :(",
-			"msg":     err.Error(),
+			"error":   err.Error(),
 		})
+		return
 	}
 
 	c.JSON(http.StatusOK, response)

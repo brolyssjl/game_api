@@ -18,7 +18,7 @@ func (t *HandlersSuiteTest) TestHandlers_HandleLoadUserGameStateOK() {
 
 	resp := PerformRequest(t.router, "GET", "/v1/users/"+t.userID+"/states", nil)
 
-	var respBody map[string]interface{}
+	var respBody map[string]int
 	_ = json.Unmarshal(resp.Body.Bytes(), &respBody)
 
 	assert.Equal(t.T(), http.StatusOK, resp.Code)
@@ -43,7 +43,7 @@ func (t *HandlersSuiteTest) TestHandlers_HandleLoadUserGameStateUnprocessableEnt
 
 	resp := PerformRequest(t.router, "GET", "/v1/users/"+t.userID+"/states", nil)
 
-	var respBody map[string]interface{}
+	var respBody map[string]string
 	_ = json.Unmarshal(resp.Body.Bytes(), &respBody)
 
 	assert.Equal(t.T(), http.StatusUnprocessableEntity, resp.Code)
