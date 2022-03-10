@@ -19,7 +19,7 @@ type Config struct {
 
 func NewServer(cfg Config, handler http.Handler) *http.Server {
 	return &http.Server{
-		Addr:              os.Getenv("SERVER_PORT"),
+		Addr:              ":" + os.Getenv("SERVER_PORT"),
 		Handler:           handler,
 		ReadTimeout:       cfg.ReadTimeout,
 		WriteTimeout:      cfg.WriteTimeout,

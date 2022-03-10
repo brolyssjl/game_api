@@ -18,6 +18,7 @@ func NewRouter(e engine.Spec) *gin.Engine {
 	v1 := router.Group("/v1")
 	{
 		v1.POST("/users", handler.HandleCreateUser)
+		v1.PUT("/users/:user_id/state", handler.HandleUpdateGameState)
 	}
 
 	return router

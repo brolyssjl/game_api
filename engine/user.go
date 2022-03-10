@@ -8,7 +8,7 @@ import (
 func (e *Engine) CreateUser(name string) (*models.User, error) {
 	userId := uuid.NewString()
 
-	err := e.DB.SaveUser(userId, name)
+	err := e.DB.InsertUser(userId, name)
 	if err != nil {
 		return nil, err
 	}
@@ -17,4 +17,27 @@ func (e *Engine) CreateUser(name string) (*models.User, error) {
 		UserID: userId,
 		Name:   name,
 	}, nil
+}
+
+func (e *Engine) UpdateUserGameState(userId string, gs models.GameStatePayload) error {
+	gameData := models.GameStateUpdate{
+		GamesPlayed: gs.GamesPlayed,
+		Score:       gs.Score,
+		UserId:      userId,
+	}
+
+	rows, err := e.DB.UpdateUserGameState(gameData)
+	if err != nil {
+		return err
+	}
+
+	// user game state not exist
+	if rows == 0 {
+		err := e.DB.InsertUserGameState(gameData)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

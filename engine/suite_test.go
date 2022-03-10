@@ -22,7 +22,8 @@ var (
 
 type EngineSuiteTest struct {
 	suite.Suite
-	db models.Spec
+	db     models.Spec
+	userID string
 }
 
 func TestSuite(t *testing.T) {

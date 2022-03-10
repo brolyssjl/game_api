@@ -5,15 +5,18 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/brolyssjl/game_api/engine"
-	"github.com/brolyssjl/game_api/mocks"
 	"github.com/stretchr/testify/assert"
 )
 
 func (t *HandlersSuiteTest) TestHandlers_HandleCreateUserOK() {
 	body := `{"name": "Jonatan"}`
+	t.mock.On("InsertUser", "uuid", "Jonatan").Return(nil).Once()
 
 	resp := PerformRequest(t.router, "POST", "/v1/users", body)
+
+	var respBody map[string]interface{}
+	_ = json.Unmarshal(resp.Body.Bytes(), &respBody)
+	t.userID = respBody["id"].(string)
 
 	assert.Equal(t.T(), http.StatusOK, resp.Code)
 	assert.NotEmpty(t.T(), resp.Body.String())
@@ -34,9 +37,7 @@ func (t *HandlersSuiteTest) TestHandlers_HandleCreateUserBadRequest() {
 
 func (t *HandlersSuiteTest) TestHandlers_HandleCreateUserUnprocessableEntity() {
 	body := `{"name": "tester"}`
-	mock := new(mocks.MockConnection)
-	mock.On("SaveUser", "uuid", "tester").Return(errors.New("DB error"))
-	t.handlers = NewHandler(&engine.Engine{DB: mock})
+	t.mock.On("InsertUser", "uuid", "tester").Return(errors.New("DB error")).Once()
 
 	resp := PerformRequest(t.router, "POST", "/v1/users", body)
 
