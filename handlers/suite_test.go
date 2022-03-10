@@ -43,6 +43,7 @@ func (t *HandlersSuiteTest) SetupSuite() {
 	// set routes to test
 	t.router.POST("/v1/users", t.handlers.HandleCreateUser)
 	t.router.PUT("/v1/users/:user_id/states", t.handlers.HandleUpdateGameState)
+	t.router.GET("/v1/users/:user_id/states", t.handlers.HandleLoadGameState)
 }
 
 // Run After All Test Done
@@ -50,8 +51,12 @@ func (t *HandlersSuiteTest) TearDownSuite() {
 	log.Println("=== End Handlers Test Suite Execution ===")
 }
 
-func PerformRequest(r http.Handler, method, path, payload string, headers ...header) *httptest.ResponseRecorder {
-	req := httptest.NewRequest(method, path, strings.NewReader(payload))
+func PerformRequest(r http.Handler, method, path string, payload interface{}, headers ...header) *httptest.ResponseRecorder {
+	body := ``
+	if payload != nil {
+		body = payload.(string)
+	}
+	req := httptest.NewRequest(method, path, strings.NewReader(body))
 	for _, h := range headers {
 		req.Header.Add(h.Key, h.Value)
 	}

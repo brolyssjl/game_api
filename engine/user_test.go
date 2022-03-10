@@ -34,3 +34,14 @@ func (t *EngineSuiteTest) TestEngine_UpdateUserGameState() {
 
 	assert.NoError(t.T(), err)
 }
+
+func (t *EngineSuiteTest) TestEngine_LoadUserGameState() {
+	e := &engine.Engine{
+		DB: t.db,
+	}
+
+	gameState, err := e.LoadUserGameState(t.userID)
+
+	assert.NoError(t.T(), err)
+	assert.NotEmpty(t.T(), gameState)
+}
