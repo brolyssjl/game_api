@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -13,12 +14,17 @@ type Connection struct {
 }
 
 func NewDatabaseConnection() Spec {
-	user := "root"
-	pass := ""
-	host := "tcp(127.0.0.1:3306)"
-	database := "gamedb"
-	// Debe tener la forma usuario:contraseña@host/nombreBaseDeDatos
-	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@%s/%s", user, pass, host, database))
+	USER := os.Getenv("DB_USER")
+	PASS := os.Getenv("DB_PASS")
+	HOST := os.Getenv("DB_HOST")
+	PORT := os.Getenv("DB_PORT")
+	DBNAME := os.Getenv("DB_NAME")
+
+	db, err := sql.Open("mysql", fmt.Sprintf(
+		"%s:%s@tcp(%s:%s)/%s",
+		USER, PASS, HOST, PORT, DBNAME,
+	))
+
 	if err != nil {
 		log.Fatal(err)
 		return nil

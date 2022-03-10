@@ -1,8 +1,8 @@
 package server
 
 import (
-	"fmt"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -19,7 +19,7 @@ type Config struct {
 
 func NewServer(cfg Config, handler http.Handler) *http.Server {
 	return &http.Server{
-		Addr:              fmt.Sprintf(":%d", cfg.Port),
+		Addr:              os.Getenv("SERVER_PORT"),
 		Handler:           handler,
 		ReadTimeout:       cfg.ReadTimeout,
 		WriteTimeout:      cfg.WriteTimeout,
