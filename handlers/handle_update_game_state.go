@@ -8,7 +8,7 @@ import (
 )
 
 func (h *Handler) HandleUpdateGameState(c *gin.Context) {
-	var request models.GameStatePayload
+	var request models.GameState
 	var user models.UserIDParam
 	if err := c.ShouldBindUri(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -26,7 +26,7 @@ func (h *Handler) HandleUpdateGameState(c *gin.Context) {
 		return
 	}
 
-	err := h.Engine.UpdateUserGameState(user.UserID, models.GameStatePayload{
+	err := h.Engine.UpdateUserGameState(user.UserID, models.GameState{
 		GamesPlayed: request.GamesPlayed,
 		Score:       request.Score,
 	})

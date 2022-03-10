@@ -26,3 +26,9 @@ func (m *MockConnection) InsertUserGameState(gsu models.GameStateUpdate) error {
 
 	return args.Error(0)
 }
+
+func (m *MockConnection) GetUserGameState(userId string) (*models.GameStateDB, error) {
+	args := m.Called(userId)
+
+	return args.Get(0).(*models.GameStateDB), args.Error(1)
+}

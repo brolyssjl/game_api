@@ -25,7 +25,7 @@ func (t *EngineSuiteTest) TestEngine_UpdateUserGameState() {
 		DB: t.db,
 	}
 
-	gameState := models.GameStatePayload{
+	gameState := models.GameState{
 		GamesPlayed: 10,
 		Score:       100,
 	}
@@ -33,4 +33,15 @@ func (t *EngineSuiteTest) TestEngine_UpdateUserGameState() {
 	err := e.UpdateUserGameState(t.userID, gameState)
 
 	assert.NoError(t.T(), err)
+}
+
+func (t *EngineSuiteTest) TestEngine_LoadUserGameState() {
+	e := &engine.Engine{
+		DB: t.db,
+	}
+
+	gameState, err := e.LoadUserGameState(t.userID)
+
+	assert.NoError(t.T(), err)
+	assert.NotEmpty(t.T(), gameState)
 }

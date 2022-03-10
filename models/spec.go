@@ -5,7 +5,7 @@ type Spec interface {
 	InsertUser(userId, name string) error
 	InsertUserGameState(gsu GameStateUpdate) error
 	UpdateUserGameState(gsu GameStateUpdate) (int, error)
+	GetUserGameState(userId string) (*GameStateDB, error)
 	/*GetUserFriends(userId string) error
-	GetGameStateByUserId(userId string) error
 	UpdateUserFriends(userId string, friends []string) error*/
 }

@@ -1,6 +1,6 @@
 package models
 
-type GameStatePayload struct {
+type GameState struct {
 	GamesPlayed int `json:"gamesPlayed"`
 	Score       int `json:"score"`
 }
@@ -9,6 +9,11 @@ type GameStateUpdate struct {
 	GamesPlayed int
 	Score       int
 	UserId      string
+}
+
+type GameStateDB struct {
+	GamesPlayed int `db:"games_played"`
+	Score       int `db:"score"`
 }
 
 func (db *Connection) UpdateUserGameState(gsu GameStateUpdate) (int, error) {
@@ -31,11 +36,14 @@ func (db *Connection) InsertUserGameState(gsu GameStateUpdate) error {
 	return nil
 }
 
-func (db *Connection) GetUserGameState(userId string) error {
-	_, err := db.DB.Exec("SELECT games_played, score FROM game_states WHERE user_id = ?", userId)
+func (db *Connection) GetUserGameState(userId string) (*GameStateDB, error) {
+	var gameState GameStateDB
+	err := db.DB.QueryRow("SELECT games_played, score FROM game_states WHERE user_id = ?", userId).
+		Scan(&gameState.GamesPlayed, &gameState.Score)
+
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return &gameState, nil
 }
