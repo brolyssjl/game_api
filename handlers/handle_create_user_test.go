@@ -23,9 +23,7 @@ func (t *HandlersSuiteTest) TestHandlers_HandleCreateUserOK() {
 }
 
 func (t *HandlersSuiteTest) TestHandlers_HandleCreateUserBadRequest() {
-	body := `{}`
-
-	resp := PerformRequest(t.router, "POST", "/v1/users", body)
+	resp := PerformRequest(t.router, "POST", "/v1/users", nil)
 
 	var respBody map[string]interface{}
 	_ = json.Unmarshal(resp.Body.Bytes(), &respBody)

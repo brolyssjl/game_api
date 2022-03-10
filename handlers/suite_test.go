@@ -44,6 +44,7 @@ func (t *HandlersSuiteTest) SetupSuite() {
 	t.router.POST("/v1/users", t.handlers.HandleCreateUser)
 	t.router.PUT("/v1/users/:user_id/states", t.handlers.HandleUpdateGameState)
 	t.router.GET("/v1/users/:user_id/states", t.handlers.HandleLoadGameState)
+	t.router.PUT("/v1/users/:user_id/friends", t.handlers.HandleUpdateFriends)
 }
 
 // Run After All Test Done

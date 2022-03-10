@@ -5,6 +5,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/brolyssjl/game_api/engine"
 	"github.com/brolyssjl/game_api/models"
 	"github.com/gin-gonic/gin"
 	"github.com/ory/dockertest/v3"
@@ -23,6 +24,7 @@ var (
 type EngineSuiteTest struct {
 	suite.Suite
 	db     models.Spec
+	engine *engine.Engine
 	userID string
 }
 
@@ -81,6 +83,9 @@ func (t *EngineSuiteTest) SetupSuite() {
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
 		t.db = models.NewDatabaseConnection()
+		t.engine = &engine.Engine{
+			DB: t.db,
+		}
 
 		return t.db.(*models.Connection).DB.Ping()
 	}); err != nil {
