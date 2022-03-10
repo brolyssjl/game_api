@@ -1,6 +1,8 @@
 package engine
 
 import (
+	"errors"
+
 	"github.com/brolyssjl/game_api/models"
 	"github.com/google/uuid"
 )
@@ -52,4 +54,17 @@ func (e *Engine) LoadUserGameState(userId string) (*models.GameState, error) {
 		GamesPlayed: data.GamesPlayed,
 		Score:       data.Score,
 	}, nil
+}
+
+func (e *Engine) UpdateUserFriends(userId string, friends []string) error {
+	if len(friends) <= 0 {
+		return errors.New("friends cannot be empty")
+	}
+
+	err := e.DB.UpdateUserFriends(userId, friends)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

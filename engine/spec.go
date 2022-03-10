@@ -6,4 +6,5 @@ type Spec interface {
 	CreateUser(name string) (*models.User, error)
 	UpdateUserGameState(userId string, gs models.GameState) error
 	LoadUserGameState(userId string) (*models.GameState, error)
+	UpdateUserFriends(userId string, friends []string) error
 }
