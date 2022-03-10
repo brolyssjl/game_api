@@ -19,7 +19,7 @@ func (e *Engine) CreateUser(name string) (*models.User, error) {
 	}, nil
 }
 
-func (e *Engine) UpdateUserGameState(userId string, gs models.GameStatePayload) error {
+func (e *Engine) UpdateUserGameState(userId string, gs models.GameState) error {
 	gameData := models.GameStateUpdate{
 		GamesPlayed: gs.GamesPlayed,
 		Score:       gs.Score,
@@ -40,4 +40,16 @@ func (e *Engine) UpdateUserGameState(userId string, gs models.GameStatePayload) 
 	}
 
 	return nil
+}
+
+func (e *Engine) LoadUserGameState(userId string) (*models.GameState, error) {
+	data, err := e.DB.GetUserGameState(userId)
+	if err != nil {
+		return nil, err
+	}
+
+	return &models.GameState{
+		GamesPlayed: data.GamesPlayed,
+		Score:       data.Score,
+	}, nil
 }

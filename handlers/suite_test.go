@@ -42,7 +42,7 @@ func (t *HandlersSuiteTest) SetupSuite() {
 
 	// set routes to test
 	t.router.POST("/v1/users", t.handlers.HandleCreateUser)
-	t.router.PUT("/v1/users/:user_id/state", t.handlers.HandleUpdateGameState)
+	t.router.PUT("/v1/users/:user_id/states", t.handlers.HandleUpdateGameState)
 }
 
 // Run After All Test Done

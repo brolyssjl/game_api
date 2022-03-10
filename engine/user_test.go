@@ -25,7 +25,7 @@ func (t *EngineSuiteTest) TestEngine_UpdateUserGameState() {
 		DB: t.db,
 	}
 
-	gameState := models.GameStatePayload{
+	gameState := models.GameState{
 		GamesPlayed: 10,
 		Score:       100,
 	}
