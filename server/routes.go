@@ -21,6 +21,7 @@ func NewRouter(e engine.Spec) *gin.Engine {
 		v1.PUT("/users/:user_id/states", handler.HandleUpdateGameState)
 		v1.GET("/users/:user_id/states", handler.HandleLoadGameState)
 		v1.PUT("/users/:user_id/friends", handler.HandleUpdateFriends)
+		v1.GET("/users/:user_id/friends", handler.HandleLoadFriends)
 	}
 
 	return router

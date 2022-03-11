@@ -68,3 +68,14 @@ func (e *Engine) UpdateUserFriends(userId string, friends []string) error {
 
 	return nil
 }
+
+func (e *Engine) LoadUserFriends(userId string) (*models.UserFriends, error) {
+	data, err := e.DB.GetUserFriends(userId)
+	if err != nil {
+		return nil, err
+	}
+
+	return &models.UserFriends{
+		Friends: data.Friends,
+	}, nil
+}
