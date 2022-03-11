@@ -17,7 +17,7 @@ func (h *Handler) HandleCreateUser(c *gin.Context) {
 		return
 	}
 
-	res, err := h.Engine.CreateUser(payload.Name)
+	response, err := h.Engine.CreateUser(payload.Name)
 	if err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"message": "we couldn't create user",
@@ -26,8 +26,5 @@ func (h *Handler) HandleCreateUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"id":   res.UserID,
-		"name": res.Name,
-	})
+	c.JSON(http.StatusOK, response)
 }

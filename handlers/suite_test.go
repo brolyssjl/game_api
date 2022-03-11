@@ -41,6 +41,7 @@ func (t *HandlersSuiteTest) SetupSuite() {
 	t.handlers = NewHandler(engine)
 
 	// set routes to test
+	t.router.GET("/v1/users", t.handlers.HandleLoadUsers)
 	t.router.POST("/v1/users", t.handlers.HandleCreateUser)
 	t.router.PUT("/v1/users/:user_id/states", t.handlers.HandleUpdateGameState)
 	t.router.GET("/v1/users/:user_id/states", t.handlers.HandleLoadGameState)

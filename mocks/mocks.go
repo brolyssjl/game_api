@@ -52,3 +52,13 @@ func (m *MockConnection) GetUserFriends(userId string) (*models.UserFriendsDB, e
 
 	return nil, args.Error(1)
 }
+
+func (m *MockConnection) GetAllUsers() (*models.UsersDB, error) {
+	args := m.Called()
+
+	if args.Get(0) != nil {
+		return args.Get(0).(*models.UsersDB), args.Error(1)
+	}
+
+	return nil, args.Error(1)
+}
