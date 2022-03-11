@@ -45,3 +45,10 @@ func (t *EngineSuiteTest) TestEngine_UpdateUserFriends() {
 
 	assert.NoError(t.T(), err)
 }
+
+func (t *EngineSuiteTest) TestEngine_LoadUserFriends() {
+	friends, err := t.engine.LoadUserFriends(t.userID)
+
+	assert.NoError(t.T(), err)
+	assert.NotEmpty(t.T(), friends)
+}

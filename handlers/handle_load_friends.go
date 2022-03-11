@@ -7,10 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h *Handler) HandleUpdateFriends(c *gin.Context) {
+func (h *Handler) HandleLoadFriends(c *gin.Context) {
 	var user models.UserIDParam
-	var payload models.UserFriendsPayload
-
 	if err := c.ShouldBindUri(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "invalid request",
@@ -19,22 +17,14 @@ func (h *Handler) HandleUpdateFriends(c *gin.Context) {
 		return
 	}
 
-	if err := c.ShouldBindJSON(&payload); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "invalid request",
-			"error":   err.Error(),
-		})
-		return
-	}
-
-	err := h.Engine.UpdateUserFriends(user.UserID, payload.Friends)
+	response, err := h.Engine.LoadUserFriends(user.UserID)
 	if err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
-			"message": "we couldn't update user friends",
+			"message": "we couldn't retrieve user friends data",
 			"error":   err.Error(),
 		})
 		return
 	}
 
-	c.JSON(http.StatusNoContent, nil)
+	c.JSON(http.StatusOK, response)
 }
