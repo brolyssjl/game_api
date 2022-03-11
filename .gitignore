@@ -16,3 +16,4 @@
 config/.env
 .vscode/
 models/migrations
+/dump/
