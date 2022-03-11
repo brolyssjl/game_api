@@ -42,3 +42,13 @@ func (m *MockConnection) UpdateUserFriends(userId string, friends []string) erro
 
 	return args.Error(0)
 }
+
+func (m *MockConnection) GetUserFriends(userId string) (*models.UserFriendsDB, error) {
+	args := m.Called(userId)
+
+	if args.Get(0) != nil {
+		return args.Get(0).(*models.UserFriendsDB), args.Error(1)
+	}
+
+	return nil, args.Error(1)
+}
