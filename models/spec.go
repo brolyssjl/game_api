@@ -8,4 +8,5 @@ type Spec interface {
 	UpdateUserGameState(gsu GameStateUpdate) (int, error)
 	UpdateUserFriends(userId string, friends []string) error
 	GetUserFriends(userId string) (*UserFriendsDB, error)
+	GetAllUsers() (*UsersDB, error)
 }
