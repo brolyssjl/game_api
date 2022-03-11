@@ -40,4 +40,4 @@ I added a postman collection of the endpoints:
 
 ## ER Model
 
-![enter image description here](file:///./doc/GameDBModel.png)
+![ER Model](https://drive.google.com/file/d/1YY-qIViRVvozKRMB5dInrJRX1E4PZT_s/view?usp=sharing)
