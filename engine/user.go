@@ -79,3 +79,14 @@ func (e *Engine) LoadUserFriends(userId string) (*models.UserFriends, error) {
 		Friends: data.Friends,
 	}, nil
 }
+
+func (e *Engine) LoadAllUsers() (*models.Users, error) {
+	data, err := e.DB.GetAllUsers()
+	if err != nil {
+		return nil, err
+	}
+
+	return &models.Users{
+		Users: data.Users,
+	}, nil
+}

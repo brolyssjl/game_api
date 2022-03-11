@@ -8,4 +8,5 @@ type Spec interface {
 	LoadUserGameState(userId string) (*models.GameState, error)
 	UpdateUserFriends(userId string, friends []string) error
 	LoadUserFriends(userId string) (*models.UserFriends, error)
+	LoadAllUsers() (*models.Users, error)
 }

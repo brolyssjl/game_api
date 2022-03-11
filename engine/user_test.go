@@ -52,3 +52,10 @@ func (t *EngineSuiteTest) TestEngine_LoadUserFriends() {
 	assert.NoError(t.T(), err)
 	assert.NotEmpty(t.T(), friends)
 }
+
+func (t *EngineSuiteTest) TestEngine_LoadAllUsers() {
+	users, err := t.engine.LoadAllUsers()
+
+	assert.NoError(t.T(), err)
+	assert.NotEmpty(t.T(), users)
+}

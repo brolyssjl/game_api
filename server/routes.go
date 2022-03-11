@@ -17,6 +17,7 @@ func NewRouter(e engine.Spec) *gin.Engine {
 	handler := handlers.NewHandler(e)
 	v1 := router.Group("/v1")
 	{
+		v1.GET("/users", handler.HandleLoadUsers)
 		v1.POST("/users", handler.HandleCreateUser)
 		v1.PUT("/users/:user_id/states", handler.HandleUpdateGameState)
 		v1.GET("/users/:user_id/states", handler.HandleLoadGameState)
